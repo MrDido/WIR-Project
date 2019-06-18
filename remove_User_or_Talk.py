@@ -4,8 +4,6 @@ wiki=wikipediaapi.Wikipedia('en')
 t = wiki.page("Pokemon Go")
 d = t.backlinks
 
-for i in d:
-    print(i)
 def removeUser(d):
     res=[]
     for i in d.keys():
@@ -14,7 +12,11 @@ def removeUser(d):
     return res
 
 new=removeUser(d)
-print()
-print("/")
+
+
+f= open("output_after_remove.txt","w+")
+
 for i in new:
+    f.write(i +"\n")
     print(i)
+f.close()
