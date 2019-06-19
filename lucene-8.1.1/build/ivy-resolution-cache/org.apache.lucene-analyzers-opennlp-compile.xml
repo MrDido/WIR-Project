@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="org.apache.lucene"
+		module="analyzers-opennlp"
+		revision="working@herson-desktop"
+		conf="compile"
+		confs="compile"
+		date="20190619195310"/>
+	<dependencies>
+		<module organisation="org.apache.opennlp" name="opennlp-tools">
+			<revision name="1.9.1" status="release" pubdate="20181227201627" resolver="public" artresolver="main" homepage="" downloaded="true" searched="true" default="false" conf="master" position="0">
+				<metadata-artifact status="successful" details="" size="4038" time="126" location="/home/herson/.ivy2/cache/org.apache.opennlp/opennlp-tools/ivy-1.9.1.xml" searched="true" original-local-location="/home/herson/.ivy2/cache/org.apache.opennlp/opennlp-tools/ivy-1.9.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/opennlp/opennlp-tools/1.9.1/opennlp-tools-1.9.1.pom"/>
+				<caller organisation="org.apache.lucene" name="analyzers-opennlp" conf="compile" rev="1.9.1" rev-constraint-default="1.9.1" rev-constraint-dynamic="1.9.1" callerrev="working@herson-desktop"/>
+				<artifacts>
+					<artifact name="opennlp-tools" type="bundle" ext="jar" status="successful" details="" size="1248314" time="296" location="/home/herson/.ivy2/cache/org.apache.opennlp/opennlp-tools/bundles/opennlp-tools-1.9.1.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/opennlp/opennlp-tools/1.9.1/opennlp-tools-1.9.1.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+	</dependencies>
+</ivy-report>
