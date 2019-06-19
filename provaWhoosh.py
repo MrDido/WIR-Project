@@ -22,9 +22,9 @@ writer = ix.writer()
 
 
 #take the file and add line by line
-path = 'source/output_after_remove.txt'
-titolo = "rosso"
-with open(path) as f:
+path = 'source/output_Tea.txt'
+titolo = "Tea_search"
+with open(path, "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 for i in lines:
@@ -43,7 +43,7 @@ ix = open_dir("indexdir")
 
 with ix.searcher(weighting=scoring.Frequency) as searcher:
      parser = QueryParser("content", ix.schema) #this is where to search
-     myquery = parser.parse("list") #this is the word to search
+     myquery = parser.parse("english") #this is the word to search
      results = searcher.search(myquery)
      print(results)
      for i in results:

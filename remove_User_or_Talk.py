@@ -1,7 +1,8 @@
 import wikipediaapi
+import io
 wiki=wikipediaapi.Wikipedia('en')
 
-t = wiki.page("Pokemon Go")
+t = wiki.page("Tea")
 d = t.backlinks
 
 def removeUser(d):
@@ -14,9 +15,8 @@ def removeUser(d):
 new=removeUser(d)
 
 
-f= open("output_after_remove.txt","w+")
+with open("output_Tea.txt", "w", encoding="utf-8") as f:
+    for i in new:
+        f.write(i +"\n")
+        print(i)
 
-for i in new:
-    f.write(i +"\n")
-    print(i)
-f.close()
