@@ -72,11 +72,14 @@ def create_and_write(title, links):
                         
 
             print("Processed " + i)
-            
-            #scrivo nel file origine
-            res.sort()
-            for i in res:
-                f.write(i + "\n")
+
+        res_clean_string = ' '.join(res)
+        res_clean_list = res_clean_string.split()
+                    
+        unique_res = unique_list(res_clean_list)
+        #scrivo nel file origine
+        for k in unique_res:
+            f.write(k + " ")
 
 
 create_and_write(origin, d)
