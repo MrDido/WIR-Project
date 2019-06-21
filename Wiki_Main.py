@@ -37,12 +37,12 @@ def checkBad_Words(res, toCheck, bad_words):
 
 def create_and_write(title, links):
     bad_words = ['user:', 'talk:', 'wikipedia:', 'template:', 'category:', 'file:', 'files:', 'portal:', 'draft:']
-    if not os.path.exists('files_'+ origin):
-        os.mkdir('files_' + origin)
+    if not os.path.exists('Full_Repr_'+ origin):
+        os.mkdir('Full_Repr_' + origin)
 
     if ('/' or ',') in title:
         title = title.replace('/', '_')
-    with open(os.path.join('files_' + origin, title + ".txt"), "w+", encoding="utf-8") as f:
+    with open(os.path.join('Full_Repr_' + origin, title + ".txt"), "w+", encoding="utf-8") as f:
         res_origin = []
         #scansione backlinks della pagina principale
         for i in links.keys():
@@ -63,7 +63,7 @@ def create_and_write(title, links):
                 print("Processed " + i)
             i_title = ''.join(res)
                 #scansione backlinks dei backlinks
-            with open(os.path.join('files_' + title, i_title + ".txt"), "w+", encoding="utf-8" ) as f1:
+            with open(os.path.join('Full_Repr_' + title, i_title + ".txt"), "w+", encoding="utf-8" ) as f1:
                 '''t1  = wiki.page(i)
                 links1 = t1.backlinks'''
                 res1=[]

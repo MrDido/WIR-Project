@@ -16,12 +16,8 @@
  */
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,7 +25,6 @@ import java.util.Date;
 
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -54,7 +49,7 @@ public class SearchFiles {
       System.exit(0);
     }
 
-    String index = "/Users/herson/Desktop/WIR/index_Marshmello";
+    String index = "/home/herson/Desktop/index_test/index_Marshmello";
     String field = "contents";
     String queries = null;
     int repeat = 0;
@@ -189,15 +184,7 @@ public class SearchFiles {
         String path = doc.get("path");
         if (path != null) {
           System.out.println((i+1) + ". " + path);
-          
-          File f = new File("/Users/herson/Desktop/test-wir2/TEST.txt");
-          FileWriter fw=new FileWriter(f,true);
-          BufferedWriter bw = new BufferedWriter(fw);
-          PrintWriter out = new PrintWriter(bw);
-          out.println((i+1) + ". " + path);
-          fw.flush();
-          out.flush();
-          
+        
           String title = doc.get("title");
           if (title != null) {
             System.out.println("   Title: " + doc.get("title"));

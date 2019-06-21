@@ -15,18 +15,12 @@
  * limitations under the License.
  */
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -48,7 +42,7 @@ public class Top_Searcher {
 			
 			for (int i=0; i < hits.length;i++) {
 				Document doc = searcher.doc(hits[i].doc);
-				String path = doc.get("path");
+				String path = doc.get("title");
 				System.out.println((i+1) + ". " + path);
 
 			}		
@@ -58,8 +52,10 @@ public class Top_Searcher {
   public static void main(String[] args) throws Exception {
 	    
 		String query_string=null;
-	    String index = "/Users/herson/Desktop/WIR/index_Marshmello"; 
-	    
+	    //String index = "/home/herson/Desktop/index_test/index_Marshmello"; 
+		String index = null;
+	    if ("-index".equals(args[0]))  index = args[1];
+	       
 	    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
 	    IndexSearcher searcher = new IndexSearcher(reader);
 	    Analyzer analyzer = new StandardAnalyzer();
