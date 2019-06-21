@@ -47,9 +47,10 @@ def create_and_write(title, links):
         #scansione backlinks della pagina principale
         for i in links.keys():
             res = []
-
+            t1 = wiki.page(i)
+            links1 = t1.backlinks
             if ('/' or ',') in i:
-                i = i.replace('/', '_')
+                i = i.replace('/', '_').replace(',','_')
                 
             '''if ("user" not in i.lower()) and ("talk:" not in i.lower()) and ("wikipedia" not in i.lower()) and ("template" not in i.lower()) and ("category" not in i.lower()) and ("file" not in i.lower()) and ("portal" not in i.lower()):
                 res.append(i)'''
@@ -63,13 +64,13 @@ def create_and_write(title, links):
             i_title = ''.join(res)
                 #scansione backlinks dei backlinks
             with open(os.path.join('files_' + title, i_title + ".txt"), "w+", encoding="utf-8" ) as f1:
-                t1  = wiki.page(i)
-                links1 = t1.backlinks
+                '''t1  = wiki.page(i)
+                links1 = t1.backlinks'''
                 res1=[]
                 for j in links1.keys():
 
                     if ('/' or ',') in i:
-                        j = j.replace('/', '_')
+                        j = j.replace('/', '_').replace(',', '_')
             
                             
                         '''if ("user" not in j.lower()) and ("talk:" not in j.lower()) and ("wikipedia" not in j.lower()) and ("template" not in j.lower()) and ("category" not in j.lower()) and ("file" not in j.lower()) and ("portal" not in j.lower()):
@@ -81,7 +82,7 @@ def create_and_write(title, links):
                     '''
                 res1_clean_string = ' '.join(res1)
                 # unwanted chars
-                bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%"]
+                bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "÷", ":", "/", ",", ".","*","?","|","!","$","^"]
                 res1_clean_string = ''.join(i for i in res1_clean_string if not i in bad_chars).strip()
                 res1_clean_list = res1_clean_string.split()
                 '''
@@ -94,7 +95,7 @@ def create_and_write(title, links):
 
         res_clean_string = ' '.join(res_origin)
         # unwanted chars
-        bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%"]
+        bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "÷", ":", "/", ",", ".","*","?","|","!","$","^"]
         res_clean_string = ''.join(i for i in res_clean_string if not i in bad_chars).strip()
         res_clean_list = res_clean_string.split()
         unique_res = unique_list(res_clean_list)
