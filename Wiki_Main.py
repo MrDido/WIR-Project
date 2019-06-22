@@ -82,7 +82,7 @@ def create_and_write(title, links):
                     '''
                 res1_clean_string = ' '.join(res1)
                 # unwanted chars
-                bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "÷", ":", "/", ",", ".","*","?","|","!","$","^"]
+                bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "+", "÷", ":", "/", ",", ".","*","?","|","!","$", "^","<",">", "=", "{", "}", "~", ";","_", "\\", "\"", "-"]
                 res1_clean_string = ''.join(i for i in res1_clean_string if not i in bad_chars).strip()
                 res1_clean_list = res1_clean_string.split()
                 '''
@@ -95,7 +95,7 @@ def create_and_write(title, links):
 
         res_clean_string = ' '.join(res_origin)
         # unwanted chars
-        bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "÷", ":", "/", ",", ".","*","?","|","!","$","^"]
+        bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "+", "÷", ":", "/", ",", ".","*","?","|","!","$", "^","<",">", "=", "{", "}", "~", ";", "_", "\\", "\"", "-"]
         res_clean_string = ''.join(i for i in res_clean_string if not i in bad_chars).strip()
         res_clean_list = res_clean_string.split()
         unique_res = unique_list(res_clean_list)
