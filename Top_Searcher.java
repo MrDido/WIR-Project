@@ -23,7 +23,13 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -48,27 +54,44 @@ public class Top_Searcher {
 			TopDocs results = searcher.search(query, 10);
 			ScoreDoc[] hits = results.scoreDocs;
 			
-			for (int i=0; i < hits.length;i++) {
+			String completePath = "";
+			
+			for (int i=0; i < hits.length; i++) {
 				Document doc = searcher.doc(hits[i].doc);
 				String path = doc.get("path");
-				writer.print(doc.get("title").replace(".txt", "") + " ");
+				
+				//remove duplicates and obtain a new free duplicates string
+				
+				completePath += doc.get("title").replace(".txt", "") + " ";
+				//writer.print(doc.get("title").replace(".txt", "") + " ");
 				System.out.println((i+1) + ". " + path);
 
-			}		
+			}
+			String nuovaStringa = removeDuplicates(completePath);		
+			writer.print(nuovaStringa);
+	}
+	
+	//remove duplicates and alphabetically order the string
+	private static String removeDuplicates(String stringa) {
+		List<String> items = Arrays.asList(stringa.split(" "));
+		Collections.sort(items);
+		Set<String> s = new LinkedHashSet<>(items);
+		String nuovaStringa = s.toString().toLowerCase();
+		return nuovaStringa.replace("[", "").replace("]", "").replace(",", "");
 	}
 	
   /** Simple command-line based search demo. */
   public static void main(String[] args) throws Exception {
 	    
 		String query_string=null;
-	    String index = "/Users/herson/Desktop/WIR/index_Marshmello"; 
+	    String index = "D:/Desktop/wir/WIR-Project/Java/index_Marshmello"; 
 	    
 	    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
 	    IndexSearcher searcher = new IndexSearcher(reader);
 	    Analyzer analyzer = new StandardAnalyzer();
 	    
 	    QueryParser parser = new QueryParser("contents", analyzer);
-	    String path_short = "/Users/herson/Desktop/WIR/Short_Repr_Marshmello"; 
+	    String path_short = "D:/Desktop/wir/WIR-Project/Java/Short_Repr_Marshmello"; 
 	    new File(path_short).mkdir();
 	    
 	    for(int i = 0; i < reader.numDocs();i++) {
@@ -83,7 +106,7 @@ public class Top_Searcher {
 	        BooleanQuery.setMaxClauseCount( Integer.MAX_VALUE );
 	        Query query = parser.parse(query_string);   
 		    System.out.println("Searching for: " + query.toString("contents"));
-		    PrintWriter writer = new PrintWriter(path_short + "/" +titleID + ".txt", "UTF-8");
+		    PrintWriter writer = new PrintWriter(path_short + "/" +titleID, "UTF-8");
 		    doPagingSearch(searcher,query, writer);
 		    writer.close();
 		    System.out.println();
