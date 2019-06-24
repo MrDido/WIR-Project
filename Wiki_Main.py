@@ -37,11 +37,23 @@ def checkBad_Words(res, toCheck, bad_words):
 
 def create_and_write(title, links):
     bad_words = ['user:', 'talk:', 'wikipedia:', 'template:', 'category:', 'file:', 'files:', 'portal:', 'draft:']
+    bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "+", "÷", ":", "/", ",", ".","*","?","|","!","$", "^","<",">", "=", "{", "}", "~", ";","_", "\\", "\"", "-"]
+
+    '''questo è da implementare se nella radice ci sono caratteri strani
+    origin1 = origin
+    for car in origin1:
+        if car in bad_chars:
+            origin1 = origin1.replace(car, "_")'''
+    
     if not os.path.exists('Full_Repr_'+ origin):
         os.mkdir('Full_Repr_' + origin)
 
-    if ('/' or ',') in title:
-        title = title.replace('/', '_')
+
+    '''questo toglie i bad chars dal titolo'''
+    for car in title:
+        if car in bad_chars:
+            title = title.replace(car, "_")
+            
     with open(os.path.join('Full_Repr_' + origin, title + ".txt"), "w+", encoding="utf-8") as f:
         res_origin = []
         #scansione backlinks della pagina principale
@@ -95,7 +107,8 @@ def create_and_write(title, links):
 
         res_clean_string = ' '.join(res_origin)
         # unwanted chars
-        bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "+", "÷", ":", "/", ",", ".","*","?","|","!","$", "^","<",">", "=", "{", "}", "~", ";", "_", "\\", "\"", "-"]
+        #commentata perchè dichiarato sopra
+        '''bad_chars = ['#', '@', '(', ")", "!", "&", "[", "]", "%", "£", "+", "÷", ":", "/", ",", ".","*","?","|","!","$", "^","<",">", "=", "{", "}", "~", ";", "_", "\\", "\"", "-"]'''
         res_clean_string = ''.join(i for i in res_clean_string if not i in bad_chars).strip()
         res_clean_list = res_clean_string.split()
         unique_res = unique_list(res_clean_list)
