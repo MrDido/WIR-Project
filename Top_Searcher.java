@@ -84,14 +84,14 @@ public class Top_Searcher {
   public static void main(String[] args) throws Exception {
 	    
 		String query_string=null;
-	    String index = "D:/Desktop/wir/WIR-Project/Java/index_Marshmello"; 
+	    //String index = "D:/Desktop/wir/WIR-Project/Java/index_Marshmello"; //rename index path
 	    
 	    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
 	    IndexSearcher searcher = new IndexSearcher(reader);
 	    Analyzer analyzer = new StandardAnalyzer();
 	    
 	    QueryParser parser = new QueryParser("contents", analyzer);
-	    String path_short = "D:/Desktop/wir/WIR-Project/Java/Short_Repr_Marshmello"; 
+	    //String path_short = "D:/Desktop/wir/WIR-Project/Java/Short_Repr_Marshmello"; //rename output path
 	    new File(path_short).mkdir();
 	    
 	    for(int i = 0; i < reader.numDocs();i++) {
