@@ -15,12 +15,20 @@
  * limitations under the License.
  */
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -34,7 +42,7 @@ import org.apache.lucene.search.BooleanQuery;
 /** Simple command-line based search demo. */
 public class Top_Searcher {
    
-	public static void doPagingSearch(IndexSearcher searcher, Query query) throws IOException {
+	public static void doPagingSearch(IndexSearcher searcher, Query query, PrintWriter writer) throws IOException {
 
 			// Collect enough docs to show 10 pages
 			TopDocs results = searcher.search(query, 10);
@@ -42,7 +50,8 @@ public class Top_Searcher {
 			
 			for (int i=0; i < hits.length;i++) {
 				Document doc = searcher.doc(hits[i].doc);
-				String path = doc.get("title");
+				String path = doc.get("path");
+				writer.print(doc.get("title").replace(".txt", "") + " ");
 				System.out.println((i+1) + ". " + path);
 
 			}		
@@ -52,16 +61,15 @@ public class Top_Searcher {
   public static void main(String[] args) throws Exception {
 	    
 		String query_string=null;
-	    //String index = "/home/herson/Desktop/index_test/index_Marshmello"; 
-		String index = null;
-	    if ("-index".equals(args[0]))  index = args[1];
-	       
+	    String index = "/Users/herson/Desktop/WIR/index_Marshmello"; 
+	    
 	    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
 	    IndexSearcher searcher = new IndexSearcher(reader);
 	    Analyzer analyzer = new StandardAnalyzer();
 	    
 	    QueryParser parser = new QueryParser("contents", analyzer);
-	    
+	    String path_short = "/Users/herson/Desktop/WIR/Short_Repr_Marshmello"; 
+	    new File(path_short).mkdir();
 	    
 	    for(int i = 0; i < reader.numDocs();i++) {
 	    	Document doc = reader.document(i);
@@ -75,7 +83,9 @@ public class Top_Searcher {
 	        BooleanQuery.setMaxClauseCount( Integer.MAX_VALUE );
 	        Query query = parser.parse(query_string);   
 		    System.out.println("Searching for: " + query.toString("contents"));
-		    doPagingSearch(searcher,query);
+		    PrintWriter writer = new PrintWriter(path_short + "/" +titleID + ".txt", "UTF-8");
+		    doPagingSearch(searcher,query, writer);
+		    writer.close();
 		    System.out.println();
       
 	    }   
