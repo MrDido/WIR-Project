@@ -44,7 +44,7 @@ res_similar= []
 find_links(relatedpage, pAllLinks_similar)
 #print(pAllLinks_similar)
 remove_bad_links(res_similar, pAllLinks_similar)
-print(res_similar)
+print(res_similar )
 print("\n")
 print("DIFFERENCE = ")
 print(list(set(pAllLinks_similar) - set(pAllLinks_main)))

@@ -1,19 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -59,14 +43,19 @@ public class FinalRanked_Searcher {
   public static void main(String[] args) throws Exception {
 	    
 		String query_string=null;
-	    String index = "/Users/herson/Desktop/WIR/Short_Index_Fognini"; 
+		
+		 String path ="C:\\\\Users\\\\matte\\\\Documents\\\\GitHub\\\\WIR-Project - Copy\\";
+		 //** INSERT PATH OF THE FOLDER WHERE TO READ SHORT INDEX  AND THE PATH TO STORE FINAL RESULTS **
+		    
+		 String index = path+args[0]; //rename index path
+		 String path_short = path+ args[1]; //rename output path
+		    
 	    
 	    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
 	    IndexSearcher searcher = new IndexSearcher(reader);
 	    Analyzer analyzer = new StandardAnalyzer();
 	    
 	    QueryParser parser = new QueryParser("contents", analyzer);
-	    String path_short = "/Users/herson/Desktop/WIR/FinalRanked_Fognini"; 
 	    new File(path_short).mkdir();
 	    
 	    for(int i = 0; i < reader.numDocs();i++) {
@@ -81,7 +70,7 @@ public class FinalRanked_Searcher {
 	        BooleanQuery.setMaxClauseCount( Integer.MAX_VALUE );
 	        Query query = parser.parse(query_string);   
 		    System.out.println("Searching for: " + query.toString("contents"));
-		    PrintWriter writer = new PrintWriter(path_short + "/" +titleID + ".txt", "UTF-8");
+		    PrintWriter writer = new PrintWriter(path_short + "/" +titleID, "UTF-8");
 		    doPagingSearch(searcher,query, writer);
 		    writer.close();
 		    System.out.println();
