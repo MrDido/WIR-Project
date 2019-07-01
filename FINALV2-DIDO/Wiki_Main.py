@@ -38,17 +38,17 @@ def create_and_write(title, links):
     bad_chars = ["#", "@", "(", ")", "!", "&", "[", "]", "%", "£", "+", "÷", ":", "/", ",", ".", "*", "?", "|", "!",
                  "$", "^", "<", ">", "=", "{", "}", "~", ";", "_", "\\", "\"", "-", "\'", "–", "×", "¿", "’"]
     #questo è da implementare se nella radice ci sono caratteri strani
-    origin1 = origin
+    origin1 = title
     for char in origin1:
         if char in bad_chars:
             origin1 = origin1.replace(char, "_")
 
-    if not os.path.exists(origin):
-        os.mkdir(origin)
+    if not os.path.exists(origin1):
+        os.mkdir(origin1)
 
-    if not os.path.exists(origin +'/'+'Full_Repr_'+ origin):
+    if not os.path.exists(origin1 +'/'+'Full_Repr_'+ origin1):
         #os.mkdir('Full_Repr_' + origin)
-        os.mkdir(origin + '/' + 'Full_Repr_' + origin)
+        os.mkdir(origin1 + '/' + 'Full_Repr_' + origin1)
 
 
     '''questo toglie i bad chars dal titolo'''
@@ -56,7 +56,7 @@ def create_and_write(title, links):
         if char in bad_chars:
             title = title.replace(char, "_")
             
-    with open(os.path.join(origin + '/' + 'Full_Repr_' + origin, title + ".txt"), "w+", encoding="utf-8") as f:
+    with open(os.path.join(origin1 + '/' + 'Full_Repr_' + origin1, title + ".txt"), "w+", encoding="utf-8") as f:
         res_origin = []
         #scansione backlinks della pagina principale
         for i in links.keys():
@@ -77,7 +77,7 @@ def create_and_write(title, links):
                 print("Processed " + i)
             i_title = ''.join(res)
                 #scansione backlinks dei backlinks
-            with open(os.path.join(origin + '/' + 'Full_Repr_' + title, i_title + ".txt"), "w+", encoding="utf-8" ) as f1:
+            with open(os.path.join(origin1 + '/' + 'Full_Repr_' + title, i_title + ".txt"), "w+", encoding="utf-8" ) as f1:
                 res1=[]
                 for j in links1.keys():
 
